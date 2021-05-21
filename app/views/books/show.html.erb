@@ -1,0 +1,17 @@
+<% @books.each do |book| %>
+  <%= link_to user_path(@user.id) do %>
+  <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+  <% end %>
+  <p>投稿ユーザー画像：</p>
+  <p>Title：<%= book.shop_name %></p>
+  <p>Opinion：<%= book.caption %></p>
+  <% end %>
+
+<% @user.each do |user| %>
+  <%= link_to user(user.id) do %>
+  <%= attachment_image_tag user, :image %>
+  <p>投稿ユーザー画像：<%= image_tag('sample-author1.jpg') %></p>
+  <p>ショップ名：<%= user.shop_name %></p>
+  <p>説明：<%= user.caption %></p>
+  <p>ユーザーネーム：<%= user.user.name %></p>
+<% end %>
