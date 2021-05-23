@@ -1,11 +1,37 @@
-<h2>User info</h2>
-<%= form_with model:@user, local:true do |f| %>
-  <label for="inputName">Name</label>
-  <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"name"%>
+<main>
+  <p id="notice"></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+        <h2>User info</h2>
+        <%= form_with model:@user, local:true do |f| %>
 
-  <%= attachment_image_tag book.user, :profile_image, fallback: "no_image.jpg", format: '(jpeg)', size:'40x40' %>
-  <label for="inputImage">ProfileImage</label>
-  <%= f.attachment_field :profile_image, placeholder: "プロフィール画像" %>
+        <form enctype="multipart/form-data" action="/users/44556" accept-charset="UTF-8" method="post">
+          <input name="utf8" type="hidden" value="✓">
+          <input type="hidden" name="_method" value="patch">
+          <input type="hidden" name="authenticity_token" value="XhdNWTk9JAsjH2X2EOxQFYX9Scb3cn/pjxyduE9jrzyb1O4BNcYT21NFNgotjg8YcgvzgNx3Zh7oVVn0hLrdIg==">
 
-  <%= f.submit "Update User" %>
-<% end %>
+          <div class="form-group">
+            <label for="inputName">Name</label>
+            <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"name" %>
+          </div>
+
+          <div class="form-group">
+            <label for="inputImage">Image</label>
+            <%= f.attachment_field :profile_image, placeholder: "プロフィール画像" %>
+          </div>
+
+          <div class="form-group">
+            <label for="user_introduction">Introduction</label>
+            <%= f.text_field :introduction,  autofocus: true, id:"inputIntroduction", placeholder:"iplaceholder" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit "Update User", user_path(@user.id) %>
+          </div>
+      <% end %>
+      </form>
+    </div>
+  </div>
+  </div>
+</main>
