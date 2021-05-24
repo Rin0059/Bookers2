@@ -4,16 +4,6 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
-  def create
-    @book = Book.new(book_params)
-    @book.user_id = current_user.id
-    if @book.save
-      redirect_to book_path(@book.id)
-    else
-      render :new
-    end
-  end
-
   def index
     @books = Book.all
     @book = Book.new
@@ -22,8 +12,21 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @user = current_user
+    @user = User.find(@book.user_id)
     @book_new = Book.new
+  end
+
+  def create
+    @book = Book.new(book_params)
+    @book.user_id = current_user.id
+    if @book.save
+      flash[:notice] = "Welcome! You have signed up successfully."
+      redirect_to book_path(@book)
+    else
+      @books = Book.all
+      @user = current_user
+      render :index
+    end
   end
 
   def edit
@@ -33,7 +36,8 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
     if @book.update(book_parameter)
-      redirect_to book_path, notice: "You have updated book successfully."
+       flash[:notice] = "You have updated book successfully."
+      redirect_to book_path
     else
       render 'edit'
     end
@@ -48,6 +52,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.permit(:title, :body)
+    # エラーが出た為、require(:book)削除　53行目にエラーが出たらrequire(:book)を追加
   end
 end
