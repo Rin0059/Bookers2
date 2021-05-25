@@ -1,17 +1,22 @@
 
-
 <main>
   <p id="notice"></p>
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h3><%= @user.errors.count %>errors prohibited this obj from being saved</h3>
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </div>
+          <% end %>
+
         <h2>User info</h2>
         <%= form_with model:@user, local:true do |f| %>
-
-        <form enctype="multipart/form-data" action="/users/44556" accept-charset="UTF-8" method="post">
-          <input name="utf8" type="hidden" value="✓">
-          <input type="hidden" name="_method" value="patch">
-          <input type="hidden" name="authenticity_token" value="XhdNWTk9JAsjH2X2EOxQFYX9Scb3cn/pjxyduE9jrzyb1O4BNcYT21NFNgotjg8YcgvzgNx3Zh7oVVn0hLrdIg==">
 
           <div class="form-group">
             <label for="inputName">Name</label>
