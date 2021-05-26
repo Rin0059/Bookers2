@@ -35,7 +35,7 @@ class BooksController < ApplicationController
 
   def update
     @book = Book.find(params[:id])
-    if @book.update(book_parameter)
+    if @book.update(book_params)
        flash[:notice] = "You have updated book successfully."
       redirect_to book_path
     else
@@ -52,7 +52,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.permit(:title, :body)
-    # エラーが出た為、require(:book)削除　53行目にエラーが出たらrequire(:book)を追加
+    params.require(:book).permit(:title, :body)
   end
 end
